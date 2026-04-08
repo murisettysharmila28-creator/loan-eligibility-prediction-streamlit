@@ -98,7 +98,9 @@ pip install -r requirements.txt
 
 # Run app
 python -m streamlit run app.py
+```
 
+```markdown
 ## Project Structure
 
 The project is organized into modular components for training, inference, and deployment:
@@ -140,3 +142,4 @@ loan-eligibility-prediction-streamlit/
 Sharmila Murisetty
 Graduate Student – Business Intelligence & Systems Infrastructure
 Aspiring Data Analyst / BI Developer
+```
