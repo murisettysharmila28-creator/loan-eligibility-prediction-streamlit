@@ -104,6 +104,7 @@ python -m streamlit run app.py
 
 The project is organized into modular components for training, inference, and deployment:
 
+```bash
 loan-eligibility-prediction-streamlit/
 │
 ├── app.py                  # Streamlit application
@@ -121,7 +122,7 @@ loan-eligibility-prediction-streamlit/
 │   └── loan_data.csv
 │
 └── README.md
-
+```
 
 ## Key Learnings
 
