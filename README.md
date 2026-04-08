@@ -100,7 +100,6 @@ pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-```markdown
 ## Project Structure
 
 The project is organized into modular components for training, inference, and deployment:
@@ -123,23 +122,23 @@ loan-eligibility-prediction-streamlit/
 │
 └── README.md
 
-## Key Learnings:
+
+## Key Learnings
 
 - Handling real-world data inconsistencies (missing values, encoding issues)
 - Importance of feature alignment between training and prediction
 - Model selection and evaluation
 - Deploying ML models as interactive applications
 
-## Future Improvements:
+## Future Improvements
 
 - Add probability scores for predictions
 - Improve UI/UX design
 - Add more advanced models (XGBoost, Gradient Boosting)
 - Incorporate model explainability (SHAP / feature importance)
 
-## Author:
+## Author
 
 Sharmila Murisetty
 Graduate Student – Business Intelligence & Systems Infrastructure
 Aspiring Data Analyst / BI Developer
-```
