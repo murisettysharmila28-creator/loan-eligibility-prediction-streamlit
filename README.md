@@ -151,7 +151,7 @@ The model performed reasonably well across multiple validation strategies. The 5
 
 ### 1. Clone the repository
 
-    git clone https://github.com/your-username/loan-eligibility-prediction-streamlit.git
+    git clone https://github.com/murisettysharmila28-creator/loan-eligibility-prediction-streamlit
     cd loan-eligibility-prediction-streamlit
 
 ### 2. Install dependencies
