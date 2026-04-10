@@ -2,7 +2,7 @@ import logging
 import sys
 
 
-def setup_logger(name: str = "real_estate_logger") -> logging.Logger:
+def setup_logger(name: str = "loan_logger") -> logging.Logger:
     logger = logging.getLogger(name)
 
     if not logger.handlers:
