@@ -52,13 +52,13 @@ Data preprocessing includes handling missing values, encoding categorical variab
 
 The project follows a structured and reusable design aligned with real-world ML engineering practices:
 
-- `data_loader.py` → Handles dataset ingestion with error handling  
-- `train.py` → Preprocessing, model training, model selection, and artifact saving  
-- `evaluate.py` → Computes training and test performance metrics  
-- `validation.py` → Performs cross-validation and split-ratio evaluation  
-- `predict.py` → Handles inference, preprocessing, and feature alignment  
-- `logger.py` → Centralized logging system  
-- `custom_exception.py` → Structured exception handling  
+- `data_loader.py` - Handles dataset ingestion with error handling  
+- `train.py` - Preprocessing, model training, model selection, and artifact saving  
+- `evaluate.py` - Computes training and test performance metrics  
+- `validation.py` - Performs cross-validation and split-ratio evaluation  
+- `predict.py` - Handles inference, preprocessing, and feature alignment  
+- `logger.py` - Centralized logging system  
+- `custom_exception.py` - Structured exception handling  
 
 A key design decision was to persist feature columns (`columns.pkl`) instead of hardcoding them, ensuring consistency between training and inference and preventing schema mismatch issues.
 
@@ -118,9 +118,9 @@ Best Fold Accuracy:
 
 ### Split Ratio Comparison
 
-- 80:20 → 86.18%  
-- 75:25 → 86.36%  
-- 70:30 → 85.41%  
+- 80:20 - 86.18%  
+- 75:25 - 86.36%  
+- 70:30 - 85.41%  
 
 Best Split Ratio:
 - 75:25 with 86.36% accuracy  
@@ -194,7 +194,7 @@ loan-eligibility-prediction-streamlit/
 │   ├── data_loader.py
 │   ├── train.py
 │   ├── evaluate.py
-│   ├── validation.py
+│   ├── validate.py
 │   └── predict.py
 │
 └── notebooks/
