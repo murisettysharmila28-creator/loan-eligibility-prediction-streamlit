@@ -1,20 +1,11 @@
 import streamlit as st
-import joblib
-import pandas as pd
-from src.predict import preprocess_input, align_columns
+
+from src.predict import predict_loan_status
+from src.logger import setup_logger
+
+logger = setup_logger()
 
 st.set_page_config(page_title="Loan Eligibility Predictor", layout="centered")
-
-@st.cache_resource
-def load_model():
-    return joblib.load("model/loan_eligibility_model.pkl")
-
-@st.cache_resource
-def load_columns():
-    return joblib.load("model/columns.pkl")
-
-model = load_model()
-columns = load_columns()
 
 st.title("Loan Eligibility Prediction App")
 st.write("Enter applicant details to predict whether the loan is likely to be approved.")
@@ -49,26 +40,28 @@ credit_history = 1.0 if credit_history_label == "Good" else 0.0
 property_area = st.selectbox("Property Area", ["Urban", "Semiurban", "Rural"])
 
 if st.button("Predict"):
-    input_dict = {
-        "Gender": gender,
-        "Married": married,
-        "Dependents": dependents,
-        "Education": education,
-        "Self_Employed": self_employed,
-        "ApplicantIncome": app_income,
-        "CoapplicantIncome": coapp_income,
-        "LoanAmount": loan_amount,
-        "Loan_Amount_Term": loan_term,
-        "Credit_History": credit_history,
-        "Property_Area": property_area,
-    }
+    try:
+        input_dict = {
+            "Gender": gender,
+            "Married": married,
+            "Dependents": dependents,
+            "Education": education,
+            "Self_Employed": self_employed,
+            "ApplicantIncome": app_income,
+            "CoapplicantIncome": coapp_income,
+            "LoanAmount": loan_amount,
+            "Loan_Amount_Term": loan_term,
+            "Credit_History": credit_history,
+            "Property_Area": property_area,
+        }
 
-    input_df = preprocess_input(input_dict)
-    input_df = align_columns(input_df, columns)
+        prediction = predict_loan_status(input_dict)
 
-    prediction = model.predict(input_df)[0]
+        if prediction == 1:
+            st.success("Loan Approved")
+        else:
+            st.error("Loan Not Approved")
 
-    if prediction == 1:
-        st.success("Loan Approved")
-    else:
-        st.error("Loan Not Approved")
+    except Exception as e:
+        logger.error(f"Error occurred in Streamlit app: {e}", exc_info=True)
+        st.error(f"An error occurred: {e}")

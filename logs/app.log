@@ -1,0 +1,24 @@
+2026-04-11 16:31:05,207 - INFO - loan_logger - Dataset loaded successfully. Shape: (614, 13)
+2026-04-11 16:31:05,246 - INFO - loan_logger - Loan dataset preprocessing completed successfully.
+2026-04-11 16:31:05,246 - INFO - loan_logger - Target dtype: int64
+2026-04-11 16:31:05,246 - INFO - loan_logger - Target unique values: [1, 0]
+2026-04-11 16:31:05,246 - INFO - loan_logger - Feature columns saved at: C:\Sharmila\Machine Learning\Projects\loan-eligibility-prediction-streamlit\model\columns.pkl
+2026-04-11 16:31:05,270 - INFO - loan_logger - Logistic Regression model trained successfully.
+2026-04-11 16:31:05,270 - INFO - loan_logger - Train Accuracy: 0.8004
+2026-04-11 16:31:05,270 - INFO - loan_logger - Test Accuracy: 0.8618
+2026-04-11 16:31:05,375 - INFO - loan_logger - Random Forest model trained successfully.
+2026-04-11 16:31:05,377 - INFO - loan_logger - Train Accuracy: 1.0000
+2026-04-11 16:31:05,377 - INFO - loan_logger - Test Accuracy: 0.8211
+2026-04-11 16:31:05,377 - INFO - loan_logger - Best model selected: Logistic Regression with Test Accuracy = 0.8618
+2026-04-11 16:31:05,391 - INFO - loan_logger - Model saved at: C:\Sharmila\Machine Learning\Projects\loan-eligibility-prediction-streamlit\model\loan_eligibility_model.pkl
+2026-04-11 16:31:05,403 - INFO - loan_logger - Loan dataset preprocessing completed successfully.
+2026-04-11 16:31:05,444 - INFO - loan_logger - Cross-validation accuracy scores: [0.82113821 0.80487805 0.80487805 0.75609756 0.82786885]
+2026-04-11 16:31:05,444 - INFO - loan_logger - Average cross-validation accuracy: 0.8030
+2026-04-11 16:31:05,444 - INFO - loan_logger - Best fold accuracy: 0.8279
+2026-04-11 16:31:05,444 - INFO - loan_logger - Best-performing split: Fold 5
+2026-04-11 16:31:05,485 - INFO - loan_logger - Loan dataset preprocessing completed successfully.
+2026-04-11 16:31:05,518 - INFO - loan_logger - Split ratio comparison: {'80:20': 0.8617886178861789, '75:25': 0.8636363636363636, '70:30': 0.8540540540540541}
+2026-04-11 16:31:05,518 - INFO - loan_logger - Best split ratio: 75:25 with accuracy 0.8636
+2026-04-11 16:32:14,167 - INFO - loan_logger - Prediction artifacts loaded successfully.
+2026-04-11 16:32:14,181 - INFO - loan_logger - Input preprocessing completed successfully.
+2026-04-11 16:32:14,184 - INFO - loan_logger - Loan prediction generated successfully.

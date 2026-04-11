@@ -1,213 +1,289 @@
-# Loan Eligibility Prediction
+# Loan Eligibility Prediction (Streamlit App)
 
-## Live App
+## Overview
 
+This project presents an end-to-end machine learning pipeline for predicting loan approval using applicant demographic, financial, and property-related attributes. The original notebook-based solution was transformed into a modular, production-oriented Python project with proper logging, error handling, validation, and deployment using Streamlit.
+
+The application enables users to input applicant details and receive a real-time prediction indicating whether the loan is likely to be approved.
+
+Live Application:
 https://loan-eligibility-prediction-app-sharmila.streamlit.app/
 
 ---
 
-## Overview
+## Problem Statement
 
-This project is an end-to-end machine learning application for predicting whether a loan application is likely to be approved using applicant, financial, and property-related data. The original notebook-based solution was modularized into a reusable Python project and deployed as an interactive Streamlit web application.
+Traditional notebook-based machine learning workflows lack modularity, reproducibility, and robustness for real-world deployment. They often fail to handle errors gracefully and do not enforce consistency between training and inference pipelines.
 
-The application allows users to enter applicant details and receive a real-time prediction of likely loan approval outcome.
-
----
-
-## Objective
-
-The goal of this project was to:
-- convert notebook-based machine learning code into a modular Python project
-- preprocess categorical and numerical loan application data
-- compare multiple classification models
-- evaluate model performance using classification metrics
-- add additional validation for model stability
-- deploy the final model through Streamlit
+This project addresses these gaps by:
+- converting exploratory notebook code into a modular pipeline
+- ensuring consistent preprocessing between training and prediction
+- incorporating logging and structured error handling
+- validating model performance using multiple strategies
+- deploying the model for real-time usage
 
 ---
 
 ## Dataset
 
-The dataset contains applicant, loan, and property-related features used to predict loan approval.
+The dataset contains structured information about loan applicants and is used to predict loan approval outcomes.
 
-### Features used
-- Gender
-- Married
-- Dependents
-- Education
-- Self_Employed
-- ApplicantIncome
-- CoapplicantIncome
-- LoanAmount
-- Loan_Amount_Term
-- Credit_History
-- Property_Area
+### Features
+- Gender  
+- Married  
+- Dependents  
+- Education  
+- Self_Employed  
+- ApplicantIncome  
+- CoapplicantIncome  
+- LoanAmount  
+- Loan_Amount_Term  
+- Credit_History  
+- Property_Area  
 
 ### Target
-- Loan_Approved
+- Loan_Approved (binary: 1 = approved, 0 = not approved)
+
+Data preprocessing includes handling missing values, encoding categorical variables, and ensuring numerical consistency across features.
 
 ---
 
-## Models Used
+## Code Modularization Approach
 
-The following classification models were tested:
-- Logistic Regression
-- Random Forest Classifier
+The project follows a structured and reusable design aligned with real-world ML engineering practices:
 
-### Selected Model
-- **Logistic Regression**
+- `data_loader.py` → Handles dataset ingestion with error handling  
+- `train.py` → Preprocessing, model training, model selection, and artifact saving  
+- `evaluate.py` → Computes training and test performance metrics  
+- `validation.py` → Performs cross-validation and split-ratio evaluation  
+- `predict.py` → Handles inference, preprocessing, and feature alignment  
+- `logger.py` → Centralized logging system  
+- `custom_exception.py` → Structured exception handling  
 
-The Logistic Regression model was selected because it achieved the better test performance and generalized well on this dataset.
+A key design decision was to persist feature columns (`columns.pkl`) instead of hardcoding them, ensuring consistency between training and inference and preventing schema mismatch issues.
 
 ---
 
-## Evaluation and Validation
+## Modelling Approach
 
-### Hold-out Test Result
-- **Best Test Accuracy:** 86.18%
+Two classification models were evaluated:
 
-### Additional Validation
-To assess model stability beyond a single train-test split, additional validation was performed using both 5-fold cross-validation and split ratio comparison.
+- Logistic Regression  
+- Random Forest Classifier  
 
-#### 5-Fold Cross-Validation Accuracy Scores
-- 82.11%
-- 80.49%
-- 80.49%
-- 75.61%
-- 82.79%
+Logistic Regression was selected as the final model due to its superior generalization performance and stability across validation strategies.
 
-#### Average Cross-Validation Accuracy
-- **80.30%**
+The model pipeline includes:
+- StandardScaler for feature scaling  
+- Logistic Regression for classification  
 
-#### Best Fold Accuracy
-- **82.79%**
+Random Forest, while powerful, showed slightly less consistent generalization compared to Logistic Regression in this dataset.
 
-#### Best-Performing Fold
-- **Fold 5**
+---
 
-#### Split Ratio Comparison
-- **80:20** → 86.18%
-- **75:25** → 86.36%
-- **70:30** → 85.41%
+## Training Results
 
-#### Best Split Ratio
-- **75:25**
+Both models were trained on the processed dataset and evaluated on the training set to understand fitting behavior.
 
-#### Best Split Ratio Accuracy
-- **86.36%**
+Logistic Regression demonstrated balanced learning without excessive overfitting, while Random Forest achieved strong training performance but showed relatively less stable generalization.
+
+---
+
+## Test Results
+
+- Logistic Regression Test Accuracy: 86.18%  
+
+The model achieved strong performance on the hold-out test set, indicating its ability to capture patterns in loan approval data effectively.
+
+---
+
+## Validation Results
+
+To ensure model reliability beyond a single train-test split, additional validation techniques were applied.
+
+### 5-Fold Cross-Validation
+
+Fold Accuracies:
+- 82.11%  
+- 80.49%  
+- 80.49%  
+- 75.61%  
+- 82.79%  
+
+Average CV Accuracy:
+- 80.30%  
+
+Best Fold Accuracy:
+- 82.79%  
+
+### Split Ratio Comparison
+
+- 80:20 → 86.18%  
+- 75:25 → 86.36%  
+- 70:30 → 85.41%  
+
+Best Split Ratio:
+- 75:25 with 86.36% accuracy  
 
 ### Interpretation
-The model performed reasonably well across multiple validation strategies. The 5-fold cross-validation average accuracy of 80.30% provided a more conservative estimate of generalization, while the 75:25 split produced the best hold-out accuracy of 86.36%. This suggests that the Logistic Regression model was stable overall, although single split results were slightly more optimistic than the cross-validation estimate.
+
+The cross-validation average (80.30%) is lower than the hold-out test accuracy (~86%), indicating that single split results may be slightly optimistic. Cross-validation provides a more conservative and reliable estimate of model generalization.
+
+The relatively small variation across folds suggests that the model is reasonably stable and not highly sensitive to data partitioning.
 
 ---
 
-## Project Features
+## Streamlit Application
 
-- Modular code structure
-- Separate training, evaluation, validation, and prediction modules
-- Missing value handling and preprocessing
-- One-hot encoding for categorical features
-- Target conversion from Y/N to binary values
-- Model comparison using accuracy
-- Additional 5-fold cross-validation for model validation
-- Split ratio comparison for hold-out evaluation
-- Interactive Streamlit interface for loan approval prediction
-- Deployed web application for real-time inference
+The Streamlit app provides an interactive interface for real-time predictions.
+
+Features:
+- User input for applicant attributes  
+- Automated preprocessing and feature alignment  
+- Real-time loan approval prediction  
+- Clean and intuitive interface  
+
+The application uses the saved model and feature schema to ensure consistent predictions.
+
+---
+
+## Logging and Error Handling
+
+The project implements robust logging and exception handling:
+
+- Logs stored in `logs/app.log`  
+- Tracks:
+  - data loading  
+  - preprocessing steps  
+  - model training  
+  - evaluation and validation  
+  - prediction flow  
+  - runtime errors with stack traces  
+
+Custom exception handling ensures:
+- clear error traceability  
+- improved debugging  
+- resilient pipeline execution  
 
 ---
 
 ## Project Structure
 
-    loan-eligibility-prediction-streamlit/
-    │
-    ├── app.py
-    ├── main.py
-    ├── requirements.txt
-    ├── README.md
-    │
-    ├── data/
-    │   └── credit.csv
-    │
-    ├── model/
-    │   ├── loan_eligibility_model.pkl
-    │   └── columns.pkl
-    │
-    ├── src/
-    │   ├── __init__.py
-    │   ├── config.py
-    │   ├── data_loader.py
-    │   ├── train.py
-    │   ├── evaluate.py
-    │   ├── validate.py
-    │   ├── predict.py
-    │   └── logger.py
-    │
-    └── notebooks/
-        └── Loan_Eligibility_Model_Solution.ipynb
+```bash
+loan-eligibility-prediction-streamlit/
+│
+├── app.py
+├── main.py
+├── requirements.txt
+├── README.md
+│
+├── data/
+│   └── credit.csv
+│
+├── model/
+│   ├── loan_eligibility_model.pkl
+│   └── columns.pkl
+│
+├── logs/
+│   └── app.log
+│
+├── src/
+│   ├── config.py
+│   ├── custom_exception.py
+│   ├── logger.py
+│   ├── data_loader.py
+│   ├── train.py
+│   ├── evaluate.py
+│   ├── validation.py
+│   └── predict.py
+│
+└── notebooks/
+    └── Loan_Eligibility_Model_Solution.ipynb
+```
 
 ---
 
-## How to Run Locally
+## Installation
 
-### 1. Clone the repository
+Clone the repository:
 
-    git clone https://github.com/murisettysharmila28-creator/loan-eligibility-prediction-streamlit
-    cd loan-eligibility-prediction-streamlit
+```bash
+git clone https://github.com/murisettysharmila28-creator/loan-eligibility-prediction-streamlit
+cd loan-eligibility-prediction-streamlit
+```
 
-### 2. Install dependencies
+Install dependencies:
 
-    pip install -r requirements.txt
-
-### 3. Train the model
-
-    python main.py
-
-### 4. Run the Streamlit app
-
-    python -m streamlit run app.py
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
-## Tech Stack
+## Run the Project
 
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- Streamlit
-- Joblib
+Train the model:
+
+```bash
+python main.py
+```
+
+Run the Streamlit app:
+
+```bash
+python -m streamlit run app.py
+```
 
 ---
 
-## Key Learnings
+## Key Findings
 
-- Converting notebook code into a modular ML project
-- Handling missing values and encoding categorical variables
-- Comparing classification models using accuracy
-- Using cross-validation and split-ratio comparison to assess model stability
-- Saving trained models and feature metadata for deployment
-- Building an interactive prediction app using Streamlit
+- Logistic Regression provided better generalization compared to Random Forest  
+- Cross-validation revealed that hold-out accuracy can be optimistic  
+- Model performance remained relatively stable across different splits  
+- Proper preprocessing and feature consistency significantly impact results  
 
 ---
 
 ## Limitations
 
-- The model is based on the available historical dataset and may not reflect real-world lender-specific approval rules
-- The output should be interpreted as a predictive estimate, not an actual lending decision
-- Performance may vary if the input data distribution changes significantly
+- The model is based on historical data and may not reflect real-world lending policies  
+- Accuracy is moderate and can be improved with additional features  
+- Model assumes input data distribution similar to training data  
+- Limited feature engineering was applied  
 
 ---
 
-## Future Improvements
+## Challenges
 
-- Add probability-based interpretation in the user interface
-- Perform hyperparameter tuning for the classification models
-- Compare additional models such as XGBoost or Gradient Boosting
-- Improve validation reporting with more detailed statistical summaries
-- Enhance the user interface and explainability of predictions
+- Handling missing values across multiple categorical and numerical features  
+- Ensuring consistent encoding between training and prediction  
+- Avoiding schema mismatch during deployment  
+- Validating model performance using multiple approaches  
+
+---
+
+## Learning Outcomes
+
+- Transitioned from notebook-based ML to modular project architecture  
+- Implemented production-style logging and error handling  
+- Applied multiple validation strategies for model reliability  
+- Built an end-to-end ML pipeline with deployment  
+- Ensured consistency between training and inference  
+
+---
+
+## Future Enhancements
+
+- Hyperparameter tuning for improved performance  
+- Integration of advanced models such as Gradient Boosting or XGBoost  
+- Probability-based prediction outputs  
+- Model explainability using SHAP or feature importance  
+- UI improvements for better user experience  
 
 ---
 
 ## Author
 
-Sharmila Murisetty - Data Analyst / BI Developer
+Sharmila Murisetty  
+Data Analyst / Business Intelligence Developer
